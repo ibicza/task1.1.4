@@ -40,11 +40,9 @@ public class UserServiceTest {
             userService.dropUsersTable();
             userService.createUsersTable();
             userService.saveUser(testName, testLastName, testAge);
-
             User user = userService.getAllUsers().get(0);
-
-            if (!testName.equals(user.getName())
-                    || !testLastName.equals(user.getLastName())
+            if (!testName.equals(user.getFirstName())
+                    || !testLastName.equals(user.getName())
                     || testAge != user.getAge()
             ) {
                 Assert.fail("User был некорректно добавлен в базу данных");
@@ -91,7 +89,7 @@ public class UserServiceTest {
             userService.saveUser(testName, testLastName, testAge);
             userService.cleanUsersTable();
 
-            if (userService.getAllUsers().size() != 0) {
+            if (!userService.getAllUsers().isEmpty()) {
                 Assert.fail("Метод очищения таблицы пользователей реализован не корректно");
             }
         } catch (Exception e) {
